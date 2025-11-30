@@ -1,0 +1,27 @@
+DELETE FROM Genre;
+INSERT INTO Genre VALUES(1,'Art','Film',0);
+INSERT INTO Genre VALUES(2,'Biography','UserPen',1);
+INSERT INTO Genre VALUES(3,'Business','BriefcaseBusiness',0);
+INSERT INTO Genre VALUES(4,'Children','Baby',0);
+INSERT INTO Genre VALUES(5,'Finance','Coins',0);
+INSERT INTO Genre VALUES(6,'Comics','Smile',0);
+INSERT INTO Genre VALUES(7,'Cooking','CookingPot',0);
+INSERT INTO Genre VALUES(8,'Thriller','HatGlasses',1);
+INSERT INTO Genre VALUES(9,'Engineering','ToolCase',0);
+INSERT INTO Genre VALUES(10,'Entertainment','TvMinimalPlay',0);
+INSERT INTO Genre VALUES(11,'Fantasy','Sparkles',0);
+INSERT INTO Genre VALUES(12,'Fiction','Rocket',1);
+INSERT INTO Genre VALUES(13,'Drama','Drama',0);
+INSERT INTO Genre VALUES(14,'Health','Cross',0);
+INSERT INTO Genre VALUES(15,'History','NotebookPen',1);
+INSERT INTO Genre VALUES(16,'Horror','Skull',0);
+INSERT INTO Genre VALUES(17,'Religion','Tent',0);
+INSERT INTO Genre VALUES(18,'Romance','BookHeart',1);
+INSERT INTO Genre VALUES(19,'Science','Microscope',0);
+INSERT INTO Genre VALUES(20,'Sports','Volleyball',0);
+INSERT INTO Genre VALUES(21,'Technology','Cpu',0);
+INSERT INTO Genre VALUES(22,'Travel','BriefcaseConveyorBelt',0);
+INSERT INTO Genre VALUES(23,'Education','GraduationCap',0);
+INSERT INTO Genre VALUES(24,'Psychology','Brain',0);
+INSERT INTO Genre VALUES(25,'Medical','BriefcaseMedical',0);
+
