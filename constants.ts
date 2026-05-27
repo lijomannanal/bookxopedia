@@ -62,3 +62,5 @@ export enum BOOKS_NAVIGATION_LINKS {
   favourite = 'favourite',
   genre = 'genre',
 }
+export const GOOGLE_BOOKS_API_BASE_URL =
+  'https://books.googleapis.com/books/v1/volumes';

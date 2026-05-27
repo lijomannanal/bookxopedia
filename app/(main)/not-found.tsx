@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { TriangleAlert } from 'lucide-react';
+import {TriangleAlert } from 'lucide-react';
 import Link from 'next/link';
 
 export default function NotFound() {
@@ -13,7 +13,9 @@ export default function NotFound() {
       </p>
       <div className="flex gap-4">
         <Link href="/books">
-          <Button className="text-base rounded-2xl shadow-lg">
+          <Button
+            className="text-base rounded-2xl shadow-lg"
+          >
             Go To Home
           </Button>
         </Link>

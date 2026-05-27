@@ -16,7 +16,6 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: 'Bookxopedia',
   description: 'Books library powered by Google Books API',
-  
 };
 
 export default function RootLayout({

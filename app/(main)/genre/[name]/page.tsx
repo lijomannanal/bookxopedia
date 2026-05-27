@@ -3,7 +3,6 @@ import { BOOKS_NAVIGATION_LINKS } from '@/constants';
 import prisma from '@/lib/prisma';
 import { getBooksList } from '@/service';
 import { headers } from 'next/headers';
-import { notFound } from 'next/navigation';
 
 type Props = {
   params: {
@@ -12,7 +11,7 @@ type Props = {
 };
 
 export async function generateStaticParams() {
-    const topGenres = await prisma.genre.findMany({
+  const topGenres = await prisma.genre.findMany({
     orderBy: { name: 'asc' },
     where: { showOnMenu: true },
   });
@@ -38,7 +37,7 @@ export default async function Page({ params }: Props) {
         data={books?.items ?? []}
       />
     );
-  } catch {
-    notFound();
+  } catch (error) {
+    throw error;
   }
 }

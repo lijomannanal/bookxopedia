@@ -1,4 +1,5 @@
 import Search from '../Search';
+import { Button } from '../ui/button';
 
 const Header = (props: {
   sidebarOpen: boolean;
@@ -10,7 +11,8 @@ const Header = (props: {
         <div className="flex flex-grow gap-2 items-center">
           <div className="flex items-center lg:hidden">
             {/* <!-- Hamburger Toggle BTN --> */}
-            <button
+            <Button
+              variant={'ghost'}
               aria-controls="sidebar"
               onClick={(e) => {
                 e.stopPropagation();
@@ -49,7 +51,7 @@ const Header = (props: {
                   ></span>
                 </span>
               </span>
-            </button>
+            </Button>
           </div>
           <Search />
         </div>

@@ -12,9 +12,14 @@ type Prop = IBook & { toggleFavourite?: () => void; selectedGenre?: string };
 const Book = (props: Prop) => {
   const { id, volumeInfo, selectedGenre } = props;
   const { title, authors, categories, imageLinks } = volumeInfo;
+  const displayCategory = selectedGenre
+    ? categories?.find((cat) =>
+        cat.toLowerCase().startsWith(selectedGenre.toLowerCase())
+      ) || categories?.[0]
+    : categories?.[0];
 
   return (
-    <div className="relative h-[180px] w-[285px] md:w-[360px] lg:w-[285px] xl:w-[300px] 3xl:w-[310px] shadow-card border border-solid border-gray-200 flex rounded-[0.5rem] bg-gradient-to-r from-primary to-blue-100 gap-3 p-3 pr-3">
+    <div className="relative h-[180px] w-[285px] md:w-[360px] lg:w-[285px] xl:w-[300px] 3xl:w-[310px] shadow-card border border-solid flex rounded-[0.5rem] bg-gradient-to-r from-primary to-blue-100 gap-3 p-3 pr-3">
       <Link href={`/books/${id}`}>
         <div
           className="relative w-[120px] h-[155px] 3xl:w-[100px] cursor-pointer before:absolute before:bg-[rgba(255,255,255,.5)] before:top-[50%] before:left-[50%] before:z-[2] before:block before-content-[''] before:w-0 
@@ -51,13 +56,11 @@ const Book = (props: Prop) => {
         </div>
 
         <div className="flex items-end min-h-[50px]">
-          {categories?.length && (
+          {displayCategory && (
             <div className="line-clamp-2">
-              <div className="inline-block overflow-hidden whitespace-nowrap text-ellipsis max-w-[130px] xl:max-w-[150px] bg-secondary text-sm text-white dark:text-black rounded-xl px-2 py-[2px]">
-                <Link
-                  href={`/genre/${encodeURIComponent(selectedGenre ?? categories[0])}`}
-                >
-                  {selectedGenre ?? categories[0]}
+              <div className="bg-secondary border-secondary  rounded-full overflow-hidden whitespace-nowrap text-ellipsis max-w-[130px] xl:max-w-[150px] text-sm text-white rounded-xl px-2 py-[2px]">
+                <Link href={`/genre/${encodeURIComponent(displayCategory)}`}>
+                  {displayCategory}
                 </Link>
               </div>
             </div>

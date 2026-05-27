@@ -10,7 +10,6 @@ export default async function Home() {
   return (
     <>
       <div className="mb-6 flex flex-col space-y-6">
-        {/* <SectionTitle>Popular now</SectionTitle> */}
         <BookListCarousel
           name={BOOKS_NAVIGATION_LINKS.popular}
           data={popularBooks.items}

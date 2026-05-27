@@ -36,10 +36,12 @@ const config: Config = {
         primary: {
           DEFAULT: 'var(--primary)',
           foreground: 'hsl(var(--primary-foreground))',
+          hover: "var(--primary-hover, #2B6CB0)",
         },
         secondary: {
           DEFAULT: 'var(--secondary)',
           foreground: 'hsl(var(--secondary-foreground))',
+          hover: "var(--secondary-hover, #2f855a)",
         },
         stroke: '#E2E8F0',
         gray: {

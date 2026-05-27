@@ -3,6 +3,7 @@ import BookList from '@/components/BookList';
 import { BOOKS_NAVIGATION_LINKS } from '@/constants';
 import { IBookResponse } from '@/model/books';
 import { getBooksList } from '@/service';
+import { ApiError } from '@/utils/error';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 
@@ -53,7 +54,14 @@ export default async function Page({ params }: Props) {
         />
       );
     }
-  } catch {
-    notFound();
+  } catch (error) {
+    if (error instanceof ApiError) {
+      console.log('API Error:', error.message, 'Status Code:', error.status);
+      if (error.status === 404) {
+        notFound();
+      } else {
+        throw error;
+      }
+    }
   }
 }

@@ -1,4 +1,6 @@
+import { ApiError } from '@/utils/error';
 import { IBook, IBookResponse } from '@/model/books';
+import { GOOGLE_BOOKS_API_BASE_URL } from '@/constants';
 
 type BooksFilter = {
   q?: string;
@@ -12,7 +14,7 @@ export const getBooksList = async (
   searchParams?: BooksFilter | undefined
 ): Promise<IBookResponse> => {
   try {
-    const url = new URL(`https://www.googleapis.com/books/v1/volumes`);
+    const url = new URL(GOOGLE_BOOKS_API_BASE_URL);
     const queryTerm = !searchParams?.q
       ? searchParams?.orderBy === 'newest'
         ? 'B'
@@ -30,15 +32,17 @@ export const getBooksList = async (
       params['filter'] = searchParams?.filter ?? 'partial';
     }
     url.search = new URLSearchParams(params).toString();
-    console.log('Fetching books from URL:', url.toString());
-    const response = await fetch(url);
-    if (response.ok) {
-      return response.json();
-    } else {
-      return response.text().then((text) => {
-        throw new Error(text);
-      });
+    const response = await fetch(
+      `${url}&key=${process.env.NEXT_PUBLIC_BOOKS_API_KEY}`
+    );
+    if (!response.ok) {
+      if (response.status === 429) {
+        throw new ApiError('Rate limit exceeded', 429);
+      } else {
+        throw new ApiError('Failed to fetch data', response.status);
+      }
     }
+    return response.json();
   } catch (error) {
     throw error;
   }
@@ -46,17 +50,18 @@ export const getBooksList = async (
 
 export const getBookDetails = async (volumeId: string): Promise<IBook> => {
   try {
-    const url = new URL(
-      `https://www.googleapis.com/books/v1/volumes/${volumeId}`
+    const url = new URL(`${GOOGLE_BOOKS_API_BASE_URL}/${volumeId}`);
+    const response = await fetch(
+      `${url}?key=${process.env.NEXT_PUBLIC_BOOKS_API_KEY}`
     );
-    const response = await fetch(url);
-    if (response.ok) {
-      return response.json();
-    } else {
-      return response.text().then((text) => {
-        throw new Error(text);
-      });
+    if (!response.ok) {
+      if (response.status === 429) {
+        throw new ApiError('Rate limit exceeded', 429);
+      } else {
+        throw new ApiError('Failed to fetch data', response.status);
+      }
     }
+    return response.json();
   } catch (error) {
     throw error;
   }

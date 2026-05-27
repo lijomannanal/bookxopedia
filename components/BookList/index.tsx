@@ -17,6 +17,7 @@ import Link from 'next/link';
 import NoResultFound from '../NoResultFound';
 import { Fragment } from 'react';
 import Loader from '../Loader';
+import NoFavorites from '../NoFavorites';
 
 type Prop = {
   data: IBook[];
@@ -28,11 +29,8 @@ type Prop = {
 
 const BookList = (props: Prop) => {
   const { data, name, label, isLoading } = props;
-
   const currentUrl = props.currentUrl;
   const urlSegments = currentUrl ? currentUrl.split('/').slice(1) : [];
-  console.log('URL Segments in BookList component:', urlSegments);
-  console.log('Current URL in BookList component:', currentUrl);
 
   return (
     <Card>
@@ -81,23 +79,27 @@ const BookList = (props: Prop) => {
         <div className="flex flex-col md:flex-row sm:flex-col items-center sm:items-start flex-wrap gap-4 3xl:gap-5">
           {data.length === 0 && !isLoading && (
             <div className="w-full">
-              <NoResultFound
-                caption={
-                  name === 'genre'
-                    ? `We can't find any books in this genre.`
-                    : undefined
-                }
-              />
+              {name === BOOKS_NAVIGATION_LINKS.favourite ? (
+                <NoFavorites />
+              ) : (
+                <NoResultFound
+                  caption={
+                    name === 'genre'
+                      ? `We can't find any books in this genre.`
+                      : undefined
+                  }
+                />
+              )}
             </div>
           )}
-          {isLoading && name === BOOKS_NAVIGATION_LINKS.favourite && (
+          {isLoading && name === BOOKS_NAVIGATION_LINKS.favourite ? (
             <div className="flex justify-center w-full">
               <Loader caption="Loading favorites..." />
             </div>
-          )}
-          {(data ?? []).map((book) => {
+          ) : (data ?? []).map((book) => {
             return <Book selectedGenre={label} key={book.id} {...book} />;
           })}
+
         </div>
       </CardContent>
     </Card>

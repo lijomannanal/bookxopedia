@@ -8,6 +8,7 @@ import { MENU_ITEMS } from '@/constants';
 import { GenreResponse } from '@/model/genre';
 import TopGenre from '../TopGenre';
 import ThemeSwitcher from '../ThemeSwitcher';
+import { Button } from '../ui/button';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -56,23 +57,24 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, topGenres }: SidebarProps) => {
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
       }`}
     >
-      <div className="flex mt-[60px] lg:mt-0 items-center gap-2 mb-8">
+      <div className="flex mt-[60px] lg:mt-0 items-center gap-1 mb-8">
         <Link href="/">
           <div className="flex items-center gap-2">
-            <BookOpen className="w-6 h-6 text-secondary" />
-            <span className="text-lg font-bold">Bookxopedia</span>
+            <BookOpen className="w-6 h-6 text-primary" />
+            <span className="text-lg font-bold text-primary">Bookxopedia</span>
           </div>
         </Link>
 
-        <button
+        <Button
+          variant={'link'}
           ref={trigger}
           onClick={() => setSidebarOpen(!sidebarOpen)}
           aria-controls="sidebar"
           aria-expanded={sidebarOpen}
           className="block lg:hidden"
         >
-          <ArrowLeftIcon className="w-5 h-5" />
-        </button>
+          <ArrowLeftIcon className="w-6 h-6" />
+        </Button>
       </div>
 
       <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
@@ -88,7 +90,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, topGenres }: SidebarProps) => {
                 className={`flex items-center gap-2 p-2 rounded-md hover:bg-blue-100 dark:hover:bg-slate-800`}
               >
                 <div
-                  className={`rounded-md ${pathname.startsWith(path) ? 'bg-secondary' : 'bg-gray-200'} p-1`}
+                  className={`rounded-md ${pathname.startsWith(path) ? 'bg-primary' : 'bg-gray-200'} p-1`}
                 >
                   <Icon
                     className="w-4 h-4"
@@ -99,7 +101,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen, topGenres }: SidebarProps) => {
                 <span
                   className={`text-menu-item leading-6 ${
                     pathname.startsWith(menu.path)
-                      ? 'font-medium'
+                      ? 'font-bold text-primary'
                       : 'font-normal'
                   }`}
                 >

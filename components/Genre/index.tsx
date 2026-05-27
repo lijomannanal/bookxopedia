@@ -14,9 +14,9 @@ export default function Genre({ name, icon }: IGenre) {
       >
         <CardContent className="flex flex-col justify-center items-center p-6 gap-3">
           <div className="w-15 h-15 relative">
-            <GenreIcon className="w-15 h-15" />
+            <GenreIcon className="w-15 h-15 text-secondary" />
           </div>
-          <p className="font-semibold text-lg text-center uppercase">{name}</p>
+          <p className="font-semibold text-lg text-background text-center uppercase">{name}</p>
         </CardContent>
       </Card>
     </Link>

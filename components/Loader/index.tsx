@@ -10,13 +10,11 @@ export default function Loader({ caption = 'Loading...' }: Props) {
       role="status"
       aria-live="polite"
     >
-      {/* Book Icon with subtle pulse */}
       <div className="flex items-center justify-center rounded-full p-5 bg-slate-100 shadow-inner">
-        <BookOpen className="h-10 w-10 text-indigo-600 animate-pulse" />
+        <BookOpen className="h-10 w-10 text-primary animate-pulse" />
       </div>
 
-      {/* Loading text */}
-      <div className="flex items-center text-black dark:text-white gap-2 font-medium">
+      <div className="flex items-center gap-2 font-medium">
         <LoaderIcon className="h-5 w-5 animate-spin" aria-hidden />
         {caption}
       </div>

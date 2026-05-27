@@ -3,19 +3,19 @@ import { getBooksList } from '@/service';
 import { IBookResponse } from '@/model/books';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import SearchContext from '@/app/(main)/Context/SearchContext';
-import { APIError, APIErros } from '@/model/common';
 import { Button } from '../ui/button';
 import { X } from 'lucide-react';
 import SectionTitle from '../SectionTitle';
 import Book from '../Book';
 import NoResultFound from '../NoResultFound';
 import Loader from '../Loader';
+import { ApiError } from '@/utils/error';
 
 const SearchResults = () => {
   const { searchText, setSearchText, showResults, setShowResults } =
     useContext(SearchContext);
   const [searchResults, setSearchResults] = useState<IBookResponse>();
-  const [errorCode, setErrorCode] = useState<string>();
+  const [errorCode, setErrorCode] = useState<number>();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -40,9 +40,10 @@ const SearchResults = () => {
           setSearchResults(results);
           setErrorCode(undefined);
         } catch (error) {
-          if (error instanceof Error) {
-            const errorBody = JSON.parse(error.message) as APIError;
-            setErrorCode(errorBody.error.status);
+          if (error instanceof ApiError) {
+            setErrorCode(error.status);
+          } else {
+            setErrorCode(500);
           }
         } finally {
           setLoading(false);
@@ -91,11 +92,16 @@ const SearchResults = () => {
                     />
                   </div>
                 )}
-                {errorCode === APIErros.RESOURCE_EXHAUSTED && (
-                  <div className="text-md text-black">
-                    Limit exceeded. Please try again later!
-                  </div>
-                )}
+                {errorCode &&
+                  (errorCode === 429 ? (
+                    <div className="text-md">
+                      Limit exceeded. Please try again later!
+                    </div>
+                  ) : (
+                    <div className="text-md">
+                      Failed to fetch search results. Please try again later!
+                    </div>
+                  ))}
               </>
             )}
           </div>
